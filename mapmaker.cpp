@@ -116,5 +116,5 @@ Mapmaker playRockPaperScissors(Mapmaker & mapmaker1, Mapmaker & mapmaker2){
             cout << "something went wrong, fix this will!" << endl;
         }
     }
-    return mapmaker1, mapmaker2;
+    return mapmaker2;
 }
