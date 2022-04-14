@@ -21,23 +21,20 @@ class Mapmaker{
         Mapmaker(string name);
         // Getter Functions
         string getName() const;
-        int getExplored() const;
         int getWins() const;
+        int getExplored() const;
         // Member Functions
         void printMap();
         void initializeMap();
         int checkMap() const;
         void exploreMap(Region location);
-        void gameWon();
+        // Friend Functions        
+        friend Mapmaker playRockPaperScissors(Mapmaker & mapmaker1, Mapmaker & mapmaker2);
     private:
         // Member Variables
         string m_mapmakerName = DEFAULTNAME;
         char m_map[ROWS][COLUMNS];
         int m_gamesWon = 0;
         int m_explored = 0;
-        // Member Functions
-        void victory();
 };
-// Friend Functions        
-void playRockPaperScissors(Mapmaker mapmaker1, Mapmaker mapmaker2);
 #endif

@@ -14,16 +14,17 @@ Mapmaker::Mapmaker(string name = DEFAULTNAME){
 string Mapmaker::getName() const{
     return m_mapmakerName;
 }
-int Mapmaker::getExplored() const{
-    return m_explored;
-}
+
 int Mapmaker::getWins() const{
     return m_gamesWon;
+}
+int Mapmaker::getExplored() const{
+    return m_explored;
 }
 // Member Functions
 void Mapmaker::printMap(){
     for(int i = 0; i < ROWS; i++){
-        cout << "\t\t";
+        cout << "\t\t\t";
         for(int j = 0; j < COLUMNS; j++){
             cout << m_map[i][j] << " ";
         }
@@ -54,40 +55,31 @@ int Mapmaker::checkMap() const{
 }
 
 void Mapmaker::exploreMap(Region location){
-    int randRow = rand() % 3;
-    int randColumn = rand() % 9;
-    cout << "\tExploring location [" << randRow << "][" << randColumn << "]..." << endl;
+    int randRow = (rand() % 10);
+    int randColumn = (rand() % 4);
+    cout << "\t\tExploring location [" << randRow << "][" << randColumn << "]..." << endl;
     if(m_map[randRow][randColumn] == 'U'){
         m_map[randRow][randColumn] = location.getAllergen(randRow, randColumn);
         m_explored++;
         if(m_map[randRow][randColumn] == 'A'){
-            cout << "\tAnimals shed serious dander!" << endl;
+            cout << "\t\tAnimals shed serious dander!" << endl;
         }
         else if(m_map[randRow][randColumn] == 'P'){
-            cout << "\tPollen travels a long trajectory!" << endl;
+            cout << "\t\tPollen travels a long trajectory!" << endl;
         }
         else if(m_map[randRow][randColumn] == 'D'){
-            cout << "\tDust will never leave!" << endl;
+            cout << "\t\tDust will never leave!" << endl;
         }
     }
     else{
-        cout << "\tAchoo! This area is already explored!" << endl;
+        cout << "\t\tAchoo! This area is already explored!" << endl;
     }
     return;
 }
 
-void Mapmaker::gameWon(){
-    victory();
-    return;
-}
-
-void Mapmaker::victory(){
-    m_gamesWon++;
-}
-
-void playRockPaperScissors(Mapmaker mapmaker1, Mapmaker mapmaker2){
+Mapmaker playRockPaperScissors(Mapmaker & mapmaker1, Mapmaker & mapmaker2){
     if((mapmaker1.checkMap() > 0) && (mapmaker2.checkMap() > 0)){
-        int chance = rand() % 2;
+        int chance = rand() % 3;
         string choice1 = "";
         string choice2 = "";
         if(chance == 0){
@@ -99,7 +91,7 @@ void playRockPaperScissors(Mapmaker mapmaker1, Mapmaker mapmaker2){
         else if (chance == 2){
             choice1 = "scissors";
         }
-        chance = rand() % 2;
+        chance = rand() % 3;
         if(chance == 0){
             choice2 = "rock";
         }
@@ -110,19 +102,19 @@ void playRockPaperScissors(Mapmaker mapmaker1, Mapmaker mapmaker2){
             choice2 = "scissors";
         }
         if((choice1 == "rock" && choice2 == "rock") || (choice1 == "paper" && choice2 == "paper") || (choice1 == "scissors" && choice2 == "scissors")){
-            cout << "\tRock Paper Scissors! It was a draw!" << endl;
+            cout << "\t\tRock Paper Scissors! It was a draw!" << endl;
         }
         else if((choice1 == "rock" && choice2 == "scissors") || (choice1 == "paper" && choice2 == "rock") || (choice1 == "scissors" && choice2 == "paper")){
-            cout << "\tRock Paper Scissors! " << mapmaker1.getName() << " won!"<< endl;
-            mapmaker1.gameWon();
+            cout << "\t\tRock Paper Scissors! " << mapmaker1.getName() << " won!"<< endl;
+            mapmaker1.m_gamesWon++;
         }
         else if((choice2 == "rock" && choice1 == "scissors") || (choice2 == "paper" && choice1 == "rock") || (choice2 == "scissors" && choice1 == "paper")){
-            cout << "\tRock Paper Scissors! " << mapmaker2.getName() << " won!" << endl;
-            mapmaker2.gameWon();
+            cout << "\t\tRock Paper Scissors! " << mapmaker2.getName() << " won!" << endl;
+            mapmaker2.m_gamesWon++;
         }
         else{
             cout << "something went wrong, fix this will!" << endl;
         }
     }
-    return;
+    return mapmaker1, mapmaker2;
 }

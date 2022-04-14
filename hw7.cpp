@@ -36,20 +36,20 @@ int main(){
     cout << "Lets also welcome your competetor: " << player2.getName() << "!" << endl;
     int rounds = 1;
     while((rounds <= (MAXROUNDS)) && (player1.checkMap() != 0) && (player2.checkMap() != 0)){
+        cout << "ROUND " << rounds << ":" << endl;
         if(player1.checkMap() != 0){
-            cout << "ROUND " << rounds << ":" << endl;
-            cout << player1.getName() << ":" << endl;
+            cout << "\t" << player1.getName() << ":" << endl;
             player1.exploreMap(playableRegion);
-            cout << "\tNumber of uncharted locations remaining: " << player1.checkMap() << endl;
+            cout << "\t\tNumber of uncharted locations remaining: " << player1.checkMap() << endl;
             playRockPaperScissors(player1,player2);
         }
         if(player2.checkMap() != 0){
-            cout << "ROUND " << rounds << ":" << endl;
-            cout << player2.getName() << ":" << endl;
+            cout << "\t" << player2.getName() << ":" << endl;
             player2.exploreMap(playableRegion);
-            cout << "\tNumber of uncharted locations remaining: " << player2.checkMap() << endl;
+            cout << "\t\tNumber of uncharted locations remaining: " << player2.checkMap() << endl;
             playRockPaperScissors(player1,player2);
         }
+        cout << endl;
         rounds++;
     }
     printSummary(player1, player2);
