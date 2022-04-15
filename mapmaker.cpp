@@ -7,8 +7,17 @@ using namespace std;
 
 /***********************FUNCTION DEFINITIONS***********************/
 //Constructors
-Mapmaker::Mapmaker(string name = DEFAULTNAME){
+Mapmaker::Mapmaker(){
+    string mapmaker;
+    cout << "Please enter the name for the first mapmaker: ";
+    getline(cin, mapmaker);
+    cout << endl;
+    m_mapmakerName = mapmaker;
+    initializeMap();
+}
+Mapmaker::Mapmaker(const string name){
     m_mapmakerName = name;
+    initializeMap();
 }
 // Getter Functions
 string Mapmaker::getName() const{
@@ -22,7 +31,7 @@ int Mapmaker::getExplored() const{
     return m_explored;
 }
 // Member Functions
-void Mapmaker::printMap(){
+void Mapmaker::printMap() const{
     for(int i = 0; i < ROWS; i++){
         cout << "\t\t\t";
         for(int j = 0; j < COLUMNS; j++){
@@ -36,7 +45,7 @@ void Mapmaker::printMap(){
 void Mapmaker::initializeMap(){
     for(int i = 0; i < ROWS; i++){
         for(int j = 0; j < COLUMNS; j++){
-            m_map[i][j] = 'U';
+            m_map[i][j] = UNEXPLORED;
         }
     }
     return;
@@ -46,7 +55,7 @@ int Mapmaker::checkMap() const{
     int unchartedLocations = 0;
     for(int i = 0; i < ROWS; i++){
         for(int j = 0; j < COLUMNS; j++){
-            if(m_map[i][j] == 'U'){
+            if(m_map[i][j] == UNEXPLORED){
                 unchartedLocations++;
             }
         }
@@ -58,16 +67,16 @@ void Mapmaker::exploreMap(Region location){
     int randRow = (rand() % 10);
     int randColumn = (rand() % 4);
     cout << "\t\tExploring location [" << randRow << "][" << randColumn << "]..." << endl;
-    if(m_map[randRow][randColumn] == 'U'){
+    if(m_map[randRow][randColumn] == UNEXPLORED){
         m_map[randRow][randColumn] = location.getAllergen(randRow, randColumn);
         m_explored++;
-        if(m_map[randRow][randColumn] == 'A'){
+        if(m_map[randRow][randColumn] == ANIMAL){
             cout << "\t\tAnimals shed serious dander!" << endl;
         }
-        else if(m_map[randRow][randColumn] == 'P'){
+        else if(m_map[randRow][randColumn] == POLLEN){
             cout << "\t\tPollen travels a long trajectory!" << endl;
         }
-        else if(m_map[randRow][randColumn] == 'D'){
+        else if(m_map[randRow][randColumn] == DUST){
             cout << "\t\tDust will never leave!" << endl;
         }
     }
@@ -111,9 +120,6 @@ Mapmaker playRockPaperScissors(Mapmaker & mapmaker1, Mapmaker & mapmaker2){
         else if((choice2 == "rock" && choice1 == "scissors") || (choice2 == "paper" && choice1 == "rock") || (choice2 == "scissors" && choice1 == "paper")){
             cout << "\t\tRock Paper Scissors! " << mapmaker2.getName() << " won!" << endl;
             mapmaker2.m_gamesWon++;
-        }
-        else{
-            cout << "something went wrong, fix this will!" << endl;
         }
     }
     return mapmaker2;
