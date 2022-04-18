@@ -85,7 +85,7 @@ void Mapmaker::exploreMap(Region location){
     }
     return;
 }
-
+// Friend Functions
 Mapmaker playRockPaperScissors(Mapmaker & mapmaker1, Mapmaker & mapmaker2){
     if((mapmaker1.checkMap() > 0) && (mapmaker2.checkMap() > 0)){
         int chance = rand() % 3;
