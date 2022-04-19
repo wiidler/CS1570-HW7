@@ -13,9 +13,9 @@
 using namespace std;
 
 int main(){
+    srand(278);
     cout << "Achoo! Allergy Season has arrived in the Kingdom of EET." << endl << endl;
     cout << "King Rajmund has tasked the mapmakers to explore and learn about the allergens in the region of Hip Hop Garden." << endl << endl;
-    srand(278);
     Region playableRegion = Region(REGIONNAME);
     Mapmaker player1;
     cout << "Welcome Mapmaker " << player1.getName() << "!" << endl;
